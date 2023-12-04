@@ -1,0 +1,71 @@
+---
+import { ViewTransitions } from "astro:transitions";
+
+import AsideMenu from "@/components/aside/AsideMenu.astro";
+
+interface Props {
+  title: string;
+}
+
+const { title } = Astro.props;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="description" content="Astro description" />
+    <meta name="viewport" content="width=device-width" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="generator" content={Astro.generator} />
+    <ViewTransitions fallback="none" />
+    <title>{title}</title>
+  </head>
+  <body>
+    <div id="app" class="relative h-screen p-2 gap-2">
+      <aside class="[grid-area:aside] flex-col flex overflow-auto">
+        <AsideMenu />
+      </aside>
+      <main class="[grid-area:main] rounded-lg bg-zinc-900 overflow-y-auto">
+        <slot />
+      </main>
+      <footer class="[grid-area:player] min-h-[100px]"></footer>
+    </div>
+  </body><style>
+    #app {
+      display: grid;
+      grid-template-areas: "aside main main" "player player player";
+      grid-template-columns: 350px 1fr;
+      grid-template-rows: 1fr auto;
+    }
+  </style>
+
+  <style is:global>
+    html {
+      font-family: "CircularStd", system-ui, sans-serif;
+      background: #000;
+      color: #fff;
+    }
+    svg {
+      width: 1.5em;
+      height: 1.5em;
+      fill: currentColor;
+    }
+
+    @font-face {
+      font-family: "CircularStd";
+      src: url("/fonts/CircularSpotifyText-Black.otf") format("otf");
+      font-weight: 900;
+      font-style: normal;
+      font-display: swap;
+    }
+
+    @font-face {
+      font-family: "CircularStd";
+      src: url("/fonts/CircularSpotifyText-Bold.otf") format("otf");
+      font-weight: bold;
+      font-style: normal;
+      font-display: swap;
+    }
+  </style>
+</html>

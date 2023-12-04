@@ -1,0 +1,39 @@
+---
+import Layout from "@/layouts/Layout.astro";
+
+import PlayListItemCard from "@/components/main/PlayListItemCard.astro";
+
+import { allPlaylists, songs } from "@/data/music";
+
+const { id } = Astro.params;
+
+const playList = allPlaylists.find((playlist) => playlist.id === id);
+const playListSongs = songs.filter(
+  (song) => song.albumId === playList?.albumId
+);
+---
+
+<Layout title="Welcome to Astro.">
+  <div
+    id="playlist-container"
+    class="relative flex flex-col h-full bg-zinc-900 overflow-x-hidden"
+    transition:name={`playlist ${id} box`}
+  >
+    <!-- PageHader -->
+    <header class="flex flex-col items-center gap-8 px-6">
+      <picture class="aspect-square w-52 h-52 flex-none">
+        <img
+          src={playList?.cover}
+          alt={`Cover of ${playList?.title}`}
+          class="object-cover w-full h-full rounded-md"
+          transition:name={`playlist ${playList?.id} image`}
+        />
+      </picture>
+    </header>
+    <div class="relative z-10 px-6 pt-10"></div>
+    <div
+      class="absolute inset-0 bg-gradient-to-t from-zinc-900 via-zinc-900/80"
+    >
+    </div>
+  </div>
+</Layout>
