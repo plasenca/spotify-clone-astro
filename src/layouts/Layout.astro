@@ -8,6 +8,8 @@ interface Props {
 }
 
 const { title } = Astro.props;
+
+import { Player } from "@/components/third-party/react/Player.jsx";
 ---
 
 <!doctype html>
@@ -29,43 +31,46 @@ const { title } = Astro.props;
       <main class="[grid-area:main] rounded-lg bg-zinc-900 overflow-y-auto">
         <slot />
       </main>
-      <footer class="[grid-area:player] min-h-[100px]"></footer>
+      <footer class="[grid-area:player] min-h-[100px]">
+        <Player client:load transition:name="media-player" transition:persist />
+      </footer>
     </div>
-  </body><style>
-    #app {
-      display: grid;
-      grid-template-areas: "aside main main" "player player player";
-      grid-template-columns: 350px 1fr;
-      grid-template-rows: 1fr auto;
-    }
-  </style>
+    <style>
+      #app {
+        display: grid;
+        grid-template-areas: "aside main main" "player player player";
+        grid-template-columns: 350px 1fr;
+        grid-template-rows: 1fr auto;
+      }
+    </style>
 
-  <style is:global>
-    html {
-      font-family: "CircularStd", system-ui, sans-serif;
-      background: #000;
-      color: #fff;
-    }
-    svg {
-      width: 1.5em;
-      height: 1.5em;
-      fill: currentColor;
-    }
+    <style is:global>
+      html {
+        font-family: "CircularStd", system-ui, sans-serif;
+        background: #000;
+        color: #fff;
+      }
+      svg {
+        width: 1.5em;
+        height: 1.5em;
+        fill: currentColor;
+      }
 
-    @font-face {
-      font-family: "CircularStd";
-      src: url("/fonts/CircularSpotifyText-Black.otf") format("otf");
-      font-weight: 900;
-      font-style: normal;
-      font-display: swap;
-    }
+      @font-face {
+        font-family: "CircularStd";
+        src: url("/fonts/CircularSpotifyText-Black.otf") format("otf");
+        font-weight: 900;
+        font-style: normal;
+        font-display: swap;
+      }
 
-    @font-face {
-      font-family: "CircularStd";
-      src: url("/fonts/CircularSpotifyText-Bold.otf") format("otf");
-      font-weight: bold;
-      font-style: normal;
-      font-display: swap;
-    }
-  </style>
+      @font-face {
+        font-family: "CircularStd";
+        src: url("/fonts/CircularSpotifyText-Bold.otf") format("otf");
+        font-weight: bold;
+        font-style: normal;
+        font-display: swap;
+      }
+    </style>
+  </body>
 </html>

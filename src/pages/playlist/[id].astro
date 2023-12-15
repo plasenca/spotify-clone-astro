@@ -1,11 +1,11 @@
 ---
+const { id } = Astro.params;
+
 import Layout from "@/layouts/Layout.astro";
 
 import PlayListItemCard from "@/components/main/PlayListItemCard.astro";
 
 import { allPlaylists, songs } from "@/data/music";
-
-const { id } = Astro.params;
 
 const playList = allPlaylists.find((playlist) => playlist.id === id);
 const playListSongs = songs.filter(
@@ -20,19 +20,38 @@ const playListSongs = songs.filter(
     transition:name={`playlist ${id} box`}
   >
     <!-- PageHader -->
-    <header class="flex flex-col items-center gap-8 px-6">
+    <header class="flex flex-row gap-8 px-6 mt-12">
       <picture class="aspect-square w-52 h-52 flex-none">
         <img
           src={playList?.cover}
           alt={`Cover of ${playList?.title}`}
-          class="object-cover w-full h-full rounded-md"
+          class="object-cover w-full h-full shadow-lg"
           transition:name={`playlist ${playList?.id} image`}
         />
       </picture>
+      <div class="flex flex-col justify-between">
+        <h2 class="flex flex-1 items-end">Playlist</h2>
+        <div>
+          <h1 class="text-5xl text-white font-bold block">
+            {playList?.title}
+            <span transition:name=`playlist ${playList?.id} title`></span>
+          </h1>
+        </div>
+        <div class="flex-1 flex items-end">
+          <div class="text-sm text-gray-300 font-normal">
+            <div transition:name=`playlist ${id} artists`>
+              <span>{playList?.artists}</span>
+            </div>
+            <p class="mt-1">
+              <span class="text-white">50 canciones</span>, 3 h aproximadamente
+            </p>
+          </div>
+        </div>
+      </div>
     </header>
     <div class="relative z-10 px-6 pt-10"></div>
     <div
-      class="absolute inset-0 bg-gradient-to-t from-zinc-900 via-zinc-900/80"
+      class="absolute inset-0 bg-gradient-to-t from-zinc-900 via-zinc-900/80 -z-10"
     >
     </div>
   </div>
