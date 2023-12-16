@@ -1,6 +1,8 @@
 ---
 import type { Playlist } from "@/data/music";
 
+import CardPlayButton from "@/components/third-party/react/CardPlayButton";
+
 interface Props {
   playlist: Playlist;
 }
@@ -14,10 +16,18 @@ const artistString = new Intl.ListFormat("es", {
 }).format(artists);
 ---
 
-<article class="group relative">
+<article
+  class="group relative hover:bg-zinc-800 shadow-lg hover:shadow-xl bg-zinc-500/30 transition-all duration-300"
+>
+  <div
+    class=`absolute right-4 bottom-20 translate-y-4 transition-all duration-500 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 z-10`
+  >
+    <CardPlayButton id={id} client:visible />
+  </div>
+
   <a
     href={`/playlist/${id}`}
-    class="playlist-item transition-all duration-300 flex flex-col relative p-2 overflow-hidden items-start gap-2 rounded-md hover:bg-zinc-800 shadow-lg hover:shadow-xl bg-zinc-500/30 w-44 pb-6"
+    class="playlist-item transition-all duration-300 flex flex-col relative p-2 overflow-hidden items-start gap-2 rounded-md w-44 pb-6"
     transition:name={`playlist ${id} box`}
   >
     <picture class="aspect-square w-full h-auto flex-none">
