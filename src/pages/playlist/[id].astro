@@ -6,6 +6,8 @@ import Layout from "@/layouts/Layout.astro";
 import PlayListItemCard from "@/components/main/PlayListItemCard.astro";
 
 import { allPlaylists, songs } from "@/data/music";
+import MusicTable from "@/components/music/MusicTable.astro";
+import CardPlayButton from "@/components/third-party/react/CardPlayButton";
 
 const playList = allPlaylists.find((playlist) => playlist.id === id);
 const playListSongs = songs.filter(
@@ -43,7 +45,8 @@ const playListSongs = songs.filter(
               <span>{playList?.artists}</span>
             </div>
             <p class="mt-1">
-              <span class="text-white">50 canciones</span>, 3 h aproximadamente
+              <span class="text-white">{playListSongs.length} canciones</span>,
+              3 h aproximadamente
             </p>
           </div>
         </div>
@@ -54,5 +57,11 @@ const playListSongs = songs.filter(
       class="absolute inset-0 bg-gradient-to-t from-zinc-900 via-zinc-900/80 -z-10"
     >
     </div>
+    <div>
+      <CardPlayButton id={playList?.id || ""} client:load />
+    </div>
+    <section>
+      <MusicTable songs={playListSongs} />
+    </section>
   </div>
 </Layout>

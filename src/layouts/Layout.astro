@@ -31,7 +31,7 @@ import { Player } from "@/components/third-party/react/Player.jsx";
       <main class="[grid-area:main] rounded-lg bg-zinc-900 overflow-y-auto">
         <slot />
       </main>
-      <footer class="[grid-area:player] min-h-[100px]">
+      <footer class="[grid-area:player]">
         <Player client:load transition:name="media-player" transition:persist />
       </footer>
     </div>

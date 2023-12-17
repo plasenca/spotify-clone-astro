@@ -1,0 +1,53 @@
+---
+// import Time from
+
+import { type Song } from "@/data/music.ts";
+
+interface Props {
+  songs: Song[];
+}
+
+const { songs } = Astro.props;
+
+const artistFormatted = new Intl.ListFormat("en", {
+  style: "long",
+  type: "conjunction",
+});
+---
+
+<table
+  class="table-auto text-left min-w-full divide-y-2 divide-gray-500/50 mx-4"
+>
+  <thead class="">
+    <tr class="text-gray-300 text-sm font-light">
+      <th class="px-4 py-2 font-light">#</th>
+      <th class="px-4 py-2 font-light">Título</th>
+      <th class="px-4 py-2 font-light">Álbum</th>
+      <th class="px-4 py-2 font-light">Album</th>
+    </tr>
+  </thead>
+  <tbody>
+    {
+      songs.map((song, index) => (
+        <tr class="text-gray-300 text-sm font-light hover:bg-white/10 rounded-md">
+          <td class="px-4 py-2 rounded-l-lg">{index + 1}</td>
+          <td class="px-4 py-2 flex gap-3">
+            <picture class="">
+              <img
+                src={song.image}
+                alt={song.title}
+                class="w-10 h-10 rounded-md"
+              />
+            </picture>
+            <h3 class="text-white text-base font-normal">{song.title}</h3>
+            <span>{song.artists}</span>
+          </td>
+          <td class="px-4 py-2">{song.album}</td>
+          <td class="px-4 py-2 rounded-r-lg">
+            {artistFormatted.format(song.artists)}
+          </td>
+        </tr>
+      ))
+    }
+  </tbody>
+</table>

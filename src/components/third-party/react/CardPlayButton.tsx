@@ -10,16 +10,33 @@ export default function CardPlayButton(props: CardPlayButtonProps) {
 
   const { isPlaying, setIsPlaying, currentMusic, setCurrentMusic } = usePlayerStore(state => state);
 
-  const handlePlay = () => {
-    setCurrentMusic({ playlist: { id } });
-
-    setIsPlaying(!isPlaying);
-  };
-
   const isPlayingSong = isPlaying && currentMusic?.playlist.id === id;
 
+  const handlePlay = () => {
+    if(isPlayingSong) {
+      setIsPlaying(false);
+      return;
+    }
+
+    fetch(`/api/get-info-playlist.json?id=${id}`)
+      .then(res => res.json())
+      .then(data => {
+        const { song, playlist } = data;
+
+        setIsPlaying(true);
+
+        setCurrentMusic({
+          playlist,
+          song,
+        });
+      });
+      
+
+  };
+
+
   return (
-    <button onClick={handlePlay} className="card-play-button rounded-full bg-green-600 p-2.5">
+    <button onClick={handlePlay} className="card-play-button rounded-full bg-green-600 p-2.5 hover:scale-105 hover:bg-green-500">
       {isPlayingSong ? <PauseIcon/> : <PlayIcon/> } 
     </button>
   );
